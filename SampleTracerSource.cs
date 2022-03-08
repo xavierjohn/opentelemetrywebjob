@@ -1,8 +1,6 @@
-﻿namespace OpenTelemetryWebJobExample
-{
+﻿namespace OpenTelemetryWebJobExample;
 
-    static class SampleTracerSource
-    {
-        public static string Id = "WebJobExampleSource";
-    }
+static class SampleTracerSource
+{
+    public static string Id = "WebJobExampleSource";
 }
