@@ -46,14 +46,11 @@ IHost host = Host.CreateDefaultBuilder(args)
              .SetResourceBuilder(resourceBuilder)
              .AddMeter(SampleMeters.Name)
              .AddOtlpExporter()
-             .AddConsoleExporter(options =>
-             {
-                 // The ConsoleMetricExporter defaults to a manual collect cycle.
-                 // This configuration causes metrics to be exported to stdout on a 10s interval.
-                 options.MetricReaderType = MetricReaderType.Periodic;
-                 options.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 10000;
-             });
-
+             .AddConsoleExporter((exporterOptions, metricReaderOptions) =>
+               // The ConsoleMetricExporter defaults to a manual collect cycle.
+               // This configuration causes metrics to be exported to stdout on a 10s interval.
+               metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 10000
+            );
         });
         services.AddSingleton<SampleMeters>();
         services.AddHostedService<Worker>();
